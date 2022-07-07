@@ -1,0 +1,43 @@
+class Solution
+{
+    public boolean brainGame(int[] nums)
+    {
+        int n = nums.length;
+        int validMoves = 0;
+        
+        for(int i = 0; i < n; i++){
+            
+            if(!isPrime(nums[i])){
+                int temp = getPrimeFactorCount(nums[i]);
+                validMoves = validMoves ^ (temp - 1);
+            }
+        }
+        
+        if(validMoves == 0)
+            return false;
+            
+        return true;
+    }
+    
+    private boolean isPrime(int n){
+        for(int i = 2; i <= Math.sqrt(n); i++){
+            if(n%i == 0)
+                return false;
+        }
+        
+        return true;
+    }
+    
+    private int getPrimeFactorCount(int n){
+        int count = 0;
+        int num = n;
+        for(int i = 2; i <= num/2; i++){
+            while(n%i == 0){
+                count++;
+                n = n/i;
+            }
+        }
+        
+        return count;
+    }
+}
